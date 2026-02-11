@@ -48,7 +48,7 @@ pip install joblib
 pip install pickle-mixin
 streamlit run app.py
 
-
+```
 
 
 📄 Instructions to Run — SMS Spam Classifier (Streamlit Version)
