@@ -4,6 +4,18 @@ import string
 from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
+import os
+
+# Download NLTK data if not available
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
 
 ps = PorterStemmer()
 
@@ -32,8 +44,14 @@ def transform_text(text):
 
     return " ".join(y)
 
-tfidf = pickle.load(open('vectorizer.pkl','rb'))
-model = pickle.load(open('model.pkl','rb'))
+# Load pickled models
+try:
+    tfidf = pickle.load(open('vectorizer.pkl','rb'))
+    model = pickle.load(open('model.pkl','rb'))
+except Exception as e:
+    st.error(f"Error loading models: {e}")
+    st.error("Please run the notebook to retrain and save the models.")
+    st.stop()
 
 st.title("Email/SMS Spam Classifier")
 
